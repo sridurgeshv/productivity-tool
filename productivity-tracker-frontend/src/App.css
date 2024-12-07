@@ -32,7 +32,9 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 15%;
   box-shadow: 0 2px 4px var(--shadow-color);
+  margin-top: 15px;
 }
 
 nav a {
@@ -44,7 +46,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--primary-hover);
+  color: black;
 }
 
 /* Main Page Styles */
