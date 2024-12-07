@@ -53,7 +53,17 @@ nav a:hover {
   color: var(--background-color);
 }
 
-nav button {
+.nav {
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  background: var(--primary-color);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.nav button {
   background: transparent;
   color: white;
   border: 1px solid white;
@@ -62,9 +72,12 @@ nav button {
   cursor: pointer;
   font-weight: bold;
   transition: background 0.3s ease, color 0.3s ease;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
 }
 
-nav button:hover {
+.nav button:hover {
   background: white;
   color: var(--primary-color);
 }
@@ -111,7 +124,7 @@ a:hover {
   border-radius: 8px;
   box-shadow: 0 4px 6px var(--shadow-color);
   text-align: center;
-  max-width: 400px;
+  max-width: 450px;
   width: 100%;
 }
 
@@ -119,12 +132,6 @@ a:hover {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   color: var(--primary-color);
-}
-
-.login-container p {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  color: var(--text-color);
 }
 
 .login-container button {
@@ -137,6 +144,18 @@ a:hover {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease;
+
+  /* Flexbox for alignment */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; 
+}
+
+.login-container button img {
+  height: 20px; 
+  width: 20px;
+  display: inline-block;
 }
 
 .login-container button:hover {

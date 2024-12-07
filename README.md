@@ -61,3 +61,27 @@ Use an external AI API (like Google gemini AI) or integrate Crystal with Python 
 - Use SQLite or PostgreSQL for task and user data storage. 
 ### AI Integration: 
 - Use an external AI API (like Google gemini AI) or integrate Crystal with Python libraries for advanced insights. 
+
+
+# Running Part 
+
+Backend :
+## Compile the project
+crystal build src/productivity_tracker.cr
+
+## Run the application
+./productivity_tracker
+
+
+Frontend :
+npm run dev
+
+
+Testing Endpoints: 
+## Create a task
+curl -X POST http://localhost:3000/tasks \
+     -H "Content-Type: application/json" \
+     -d '{"title":"Complete Project Setup","description":"Initialize Crystal project"}'
+
+## List tasks
+curl http://localhost:3000/tasks
