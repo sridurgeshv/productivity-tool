@@ -1,0 +1,11 @@
+name: productivity_tracker
+version: 0.1.0
+description: Smart Productivity Tracker
+crystal: 0.36.1
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+  db:
+    github: crystal-lang/crystal-db
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
