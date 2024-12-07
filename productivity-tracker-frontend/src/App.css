@@ -1,67 +1,155 @@
-/* Global styles */
+/* Global Styles */
 :root {
-  --primary-color: #1d4ed8;
-  --primary-hover: #2563eb;
-  --secondary-color: #1e293b;
-  --background-color: #f8fafc;
-  --text-color: #334155;
-  --border-color: #e2e8f0;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --font-family: 'Arial', sans-serif;
+  --primary-color: #1d4ed8; /* Blue for primary actions */
+  --primary-hover: #2563eb; /* Hover color for buttons and links */
+  --secondary-color: #1e293b; /* Subdued dark text */
+  --background-color: #f1f5f9; /* Light background for better readability */
+  --text-color: #334155; /* Default text color */
+  --border-color: #e5e7eb; /* Light border color */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Shadow for card elements */
+  --font-family: 'Roboto', 'Arial', sans-serif;
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: var(--font-family);
+  font-size: 16px;
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
 }
 
+/* Container */
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
 }
 
-/* Navigation styles */
+/* Navigation Styles */
 nav {
   background: var(--primary-color);
   color: white;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  border-radius: 8px;
   width: 15%;
-  box-shadow: 0 2px 4px var(--shadow-color);
-  margin-top: 15px;
+  box-shadow: 0 4px 6px var(--shadow-color);
 }
 
 nav a {
   text-decoration: none;
   color: white;
   font-weight: bold;
+  margin-right: 1rem;
   font-size: 1rem;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
 nav a:hover {
-  color: black;
+  color: var(--background-color);
 }
 
-/* Main Page Styles */
+nav button {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav button:hover {
+  background: white;
+  color: var(--primary-color);
+}
+
+/* Page Header */
 h1 {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: var(--primary-color);
+  text-align: center;
 }
 
 p {
   font-size: 1.2rem;
   color: var(--secondary-color);
+  text-align: center;
+  margin: 1rem 0;
 }
 
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* Login Page Styles */
+.min-h-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-color);
+}
+
+.login-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+}
+
+.login-container p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.login-container button {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-container button:hover {
+  background: var(--primary-hover);
+}
+
+.login-container .error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Card Styles */
 .card {
   background: white;
   border: 1px solid var(--border-color);
@@ -77,31 +165,32 @@ p {
   margin-bottom: 1rem;
 }
 
-.read-the-docs {
+.card p {
   font-size: 1rem;
   color: var(--secondary-color);
 }
 
-/* Link styles */
-a {
-  color: var(--primary-color);
-  text-decoration: none;
+/* Protected Route Loading */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.5rem;
   font-weight: bold;
-  transition: color 0.3s ease;
+  color: var(--primary-color);
 }
 
-a:hover {
-  color: var(--primary-hover);
-}
-
-/* Media queries for responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
   nav {
-    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  nav a {
-    font-size: 0.9rem;
+  nav a,
+  nav button {
+    margin: 0.5rem 0;
   }
 
   h1 {
@@ -123,6 +212,6 @@ a:hover {
   }
 
   nav a {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
