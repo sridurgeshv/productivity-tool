@@ -36,16 +36,17 @@
   .middle-column .text-area {
     border: 1px solid lightgrey;
     height: 85px;
-    width: 185px;
+    width: 250px;
     border-radius: 15px;
     background-color: white;
     padding: 10px 12px;
   }
 
   .middle-column h2 {
-    font-size: 18px;
+    font-size: 20px;
     color: black;
     text-align: center;
+    font-weight: 700;
   }
 
   .profile-button {

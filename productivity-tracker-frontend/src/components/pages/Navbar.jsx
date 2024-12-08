@@ -1,41 +1,35 @@
 import React from 'react';
-import { Home, Grid, User } from 'lucide-react';
+import { Home, Grid } from 'lucide-react';
+import '../globals/Navbar.css'
 
 const Navbar = () => {
   return (
-    <nav className="w-full bg-white shadow-md py-4 px-6 flex items-center justify-between">
+    <nav className="navbar">
       {/* Left side - Title */}
-      <div className="flex items-center space-x-2">
-        <h1 className="text-2xl font-bold text-gray-600">TaskMaster</h1>
+      <div className="navbar-title">
+        <h1>TaskMaster</h1>
       </div>
       
       {/* Right side - Navigation Links and Profile */}
-      <div className="flex items-center space-x-6">
+      <div className="navbar-menu">
         {/* Navigation Links */}
-        <div className="flex items-center space-x-4">
-          <a 
-            href="/dashboard" 
-            className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors"
-          >
+        <div className="navbar-links">
+          <a href="/dashboard" className="navbar-link">
             <Home size={20} />
             <span>Dashboard</span>
           </a>
-          
-          <a 
-            href="/productivity" 
-            className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors"
-          >
+          <a href="/productivity" className="navbar-link">
             <Grid size={20} />
             <span>My Tasks</span>
           </a>
         </div>
         
         {/* Profile Picture */}
-        <div className="ml-4">
+        <div className="navbar-profile">
           <img 
             src="/api/placeholder/50/50" 
             alt="Profile" 
-            className="rounded-full w-[50px] h-[50px] object-cover"
+            className="profile-image"
           />
         </div>
       </div>

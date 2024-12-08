@@ -38,7 +38,7 @@ function Dashboard() {
             <div className="middle-column">
               {/* <TaskList tasks={tasks} setTasks={setTasks} /> */} 
               <div className="text-area">
-                <h2>Hello! How are you today?</h2>
+                <h2>Hello! How are you doing today?</h2>
               </div>
               <Taskslist />
             </div>

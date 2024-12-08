@@ -4,15 +4,28 @@
   }
   
   .pomodoro-button {
-    background-color: transparent;
+    background-color: white;
     border: 1px solid #e0e0e0;
     border-radius: 20px;
-    padding: 12px 20px;
-    font-size: 16px;
+    padding: 12px 18px;
+    font-size: 18px;
+    font-weight: 600;
+    color: black; 
+    width: 160px;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+
+  .pomodoro-button:hover {
+    color: white;
+    background-color: black;
+  }
+
+  .focus-icon {
+    height: 25px;
+    width: 25px;
   }
   
   .pomodoro-popup {
