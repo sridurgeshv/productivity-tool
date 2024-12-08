@@ -11,7 +11,7 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate('/productivity');
+      navigate('/dashboard');
     } catch (error) {
       setError(error.message);
     }

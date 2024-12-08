@@ -5,6 +5,7 @@ import { auth } from './config/firebase';
 import { useState, useEffect } from 'react';
 import ProductivityTracker from './components/pages/Tasklist';
 import HomePage from './components/pages/HomePage';
+import Dashboard from './components/pages/Dashboard';
 import Login from './components/pages/Login';
 import './App.css';
 
@@ -44,6 +45,14 @@ function App() {
               </ProtectedRoute>
             } 
           />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />          
         </Routes>
       </div>
     </Router>
