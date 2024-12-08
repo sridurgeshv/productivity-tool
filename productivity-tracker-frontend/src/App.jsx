@@ -9,14 +9,15 @@ import {
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom'
 import ProductivityTracker from './components/Tasklist';
 import './App.css';
+import { useNavigate } from 'react-router-dom'
 import { initializeApp } from 'firebase/app'
 
 // Firebase configuration (replace with your actual config)
 const firebaseConfig = {
-  apiKey: "AIzaSyB_j_XUci_eH2IABQvoaOMErcR6jgIV8sU",
-  authDomain: "task-master-58da4.firebaseapp.com",
-  projectId: "task-master-58da4",
-  // other config details
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 }
 
 // Initialize Firebase
@@ -47,11 +48,13 @@ const ProtectedRoute = ({ children }) => {
 // Login Component
 const Login = () => {
   const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider()
     try {
       await signInWithPopup(auth, provider)
+      navigate('/productivity')
     } catch (error) {
       setError(error.message)
     }
