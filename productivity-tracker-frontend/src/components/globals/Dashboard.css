@@ -7,7 +7,8 @@
   .dashboard-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
+    width: 1600px;
     padding: 16px;
     background-color: #f2f2f2;
   }
@@ -15,6 +16,8 @@
   .header-buttons {
     display: flex;
     gap: 8px;
+    justify-content: right;
+    align-items: end;
   }
   
   .main-content {

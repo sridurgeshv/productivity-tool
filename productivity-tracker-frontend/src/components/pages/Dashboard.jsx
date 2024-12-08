@@ -26,10 +26,10 @@ function Dashboard() {
         <div className="dashboard">
           <div className="dashboard-header">   
            <Navbar />  
-            <div className="header-buttons">              
+          </div>
+          <div className="header-buttons">              
               <Pomodoro addTrackedTask={addTrackedTask} />
             </div>
-          </div>
           <div className="main-content">
             <div className="left-column">
               <Calendar />
