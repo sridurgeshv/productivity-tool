@@ -1,12 +1,14 @@
 /* Base Navbar styles */
 .navbar {
-    width: 100%;
+    width: 3800px;
+    max-width: 4500px;
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 1rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 5px;
   }
   
   /* Navbar Title */
