@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, googleProvider } from '../config/firebase';
+import { auth, googleProvider } from '../../config/firebase';
 import { signInWithPopup } from 'firebase/auth';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 const Login = () => {
   const [error, setError] = useState('');

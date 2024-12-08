@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth, googleProvider } from './FirebaseConfig';
+import { auth, googleProvider } from '../config/firebase';
 import { signInWithPopup, signOut, updateProfile, onAuthStateChanged } from 'firebase/auth';
 import axios from 'axios';
 

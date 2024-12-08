@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './config/firebase';
 import { useState, useEffect } from 'react';
-import ProductivityTracker from './components/Tasklist';
-import HomePage from './components/HomePage';
-import Login from './components/Login';
+import ProductivityTracker from './components/pages/Tasklist';
+import HomePage from './components/pages/HomePage';
+import Login from './components/pages/Login';
 import './App.css';
 
 // Protected Route Component
