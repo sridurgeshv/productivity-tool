@@ -1,19 +1,33 @@
-/* Base Navbar styles */
 .navbar {
-    width: 4500px;
-    background-color: white;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: left;
-    justify-content: space-between;
-    gap: 5px;
-  }
+  width: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
   
   /* Navbar Title */
   .navbar-title h1 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #4B5563; /* Tailwind's gray-600 */
+    color: #4B5563;
+    line-height: 45px; 
+  }
+  
+  .navbar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4B5563;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    line-height: 45px; 
   }
   
   /* Navbar Menu */
@@ -21,22 +35,14 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    height: 100%; /* Ensure the menu is vertically centered */
   }
   
-  /* Navbar Links */
   .navbar-links {
     display: flex;
     align-items: center;
     gap: 1rem;
-  }
-  
-  .navbar-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #4B5563; 
-    text-decoration: none;
-    transition: color 0.3s ease;
+    height: 100%; /* Ensure the links are vertically centered */
   }
   
   .navbar-link:hover {
@@ -47,11 +53,11 @@
   .navbar-profile {
     margin-left: 1rem;
   }
-  
+
   .profile-image {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
+    vertical-align: middle; /* Vertically center the profile image */
   }
-  
