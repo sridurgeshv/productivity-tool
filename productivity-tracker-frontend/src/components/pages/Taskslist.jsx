@@ -1,56 +1,39 @@
-import React, { useEffect, useCallback } from 'react';
+// update the whole file everything is changed
+import React, { useState, useEffect } from 'react';
 import '../globals/Taskslist.css';
 
-function Taskslist({ tasks = [], setTasks }) {
-  const fetchTasks = useCallback(() => {
-    fetch('http://127.0.0.1:5173/tasks')
-      .then(response => response.json())
-      .then(data => setTasks(data))
-      .catch(() => {
-        console.error('Failed to fetch tasks'); // Handle fetch errors gracefully
-        setTasks([]); // Fallback to empty array if the fetch fails
-      });
-  }, [setTasks]);
+function Taskslist() {
+  const [tasks, setTasks] = useState([]);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/tasks');
+      const data = await response.json();
+      setTasks(data);
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+      setTasks([]); // Fallback to empty array if the fetch fails
+    }
+  };
 
   useEffect(() => {
     fetchTasks();
-  }, [fetchTasks]);
+  }, []);
 
-  const handleComplete = (id) => {
-    fetch(`http://127.0.0.1:5173/tasks/complete/${id}`, { method: 'POST' })
-      .then(() => {
-        setTasks(tasks.map(task =>
-          task.id === id ? { ...task, completed: true } : task
-        ));
-      })
-      .catch(() => {
-        console.error(`Failed to mark task ${id} as complete`);
-      });
+  const handleComplete = async (id) => {
+    try {
+      await fetch(`http://localhost:3000/tasks/complete/${id}`, { method: 'POST' });
+      setTasks(tasks.map(task =>
+        task.id === id ? { ...task, status: 'completed' } : task
+      ));
+    } catch (error) {
+      console.error(`Failed to mark task ${id} as complete`, error);
+    }
   };
 
   const formatDate = (dateString) => {
-    const today = new Date();
-    const taskDate = new Date(dateString);
-
-    today.setHours(0, 0, 0, 0);
-    taskDate.setHours(0, 0, 0, 0);
-
-    const dayDifference = (taskDate - today) / (1000 * 60 * 60 * 24);
-
-    if (dayDifference === 0) {
-        return 'Today';
-    } else if (dayDifference === 1) {
-        return 'Tomorrow';
-    } else if (dayDifference >= 2 && dayDifference <= 6 && taskDate.getDay() !== 0) {
-        return 'This Week';
-    } else if (
-        taskDate.getMonth() === today.getMonth() &&
-        taskDate.getFullYear() === today.getFullYear()
-    ) {
-        return 'This Month';
-    } else {
-        return dateString;
-    }
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   return (
@@ -58,14 +41,14 @@ function Taskslist({ tasks = [], setTasks }) {
       <h3>My tasks ({tasks.length})</h3>
       <ul className="task-list">
         {tasks.map(task => (
-          <li key={task.id} className={task.completed ? 'completed' : ''}>
+          <li key={task.id} className={task.status === 'completed' ? 'completed' : ''}>
             <input
               type="checkbox"
-              checked={task.completed}
+              checked={task.status === 'completed'}
               onChange={() => handleComplete(task.id)}
             />
             {task.title}
-            <span className="task-date">{formatDate(task.date)}</span>
+            <span className="task-date">{formatDate(task.deadline)}</span>
           </li>
         ))}
       </ul>

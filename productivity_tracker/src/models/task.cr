@@ -11,7 +11,7 @@ module ProductivityTracker
     property status : String
     property created_at : String?
 
-    def initialize(@title, @description = nil, @deadline = nil, @status = "pending")
+    def initialize(@id : Int64?, @title : String, @description : String? = nil, @deadline : String? = nil, @status : String = "pending", @created_at : String? = nil)
     end
   end
 end

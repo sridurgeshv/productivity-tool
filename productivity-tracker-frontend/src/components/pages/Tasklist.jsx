@@ -1,3 +1,4 @@
+// update the whole file everything is changed
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
@@ -13,10 +14,11 @@ const CreateTask = ({ onTaskCreated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5173/tasks', {
+      const response = await fetch('http://localhost:3000/tasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           title,
@@ -25,17 +27,22 @@ const CreateTask = ({ onTaskCreated }) => {
           status: 'pending'
         })
       });
-
-      if (response.ok) {
-        const result = await response.json();
-        onTaskCreated(result);
-        // Reset form
-        setTitle('');
-        setDescription('');
-        setDeadline('');
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
+  
+      const result = await response.json();
+      onTaskCreated(result);
+      // Reset form
+      setTitle('');
+      setDescription('');
+      setDeadline('');
     } catch (error) {
-      console.error('Error creating task:', error);
+      console.error('Detailed Error creating task:', error);
+      // Optional: Add user-friendly error handling
+      alert(`Failed to create task: ${error.message}`);
     }
   };
 
@@ -70,36 +77,39 @@ const CreateTask = ({ onTaskCreated }) => {
   );
 };
 
-// Task List Component
-const TaskList = () => {
-  const [tasks, setTasks] = useState([]);
+const TaskList = ({ tasks, onRefresh }) => {
+  const [expandedTaskId, setExpandedTaskId] = useState(null);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await fetch('http://localhost:5173tasks');
-        const data = await response.json();
-        setTasks(data);
-      } catch (error) {
-        console.error('Error fetching tasks:', error);
-      }
-    };
+  const toggleTaskDetails = (taskId) => {
+    setExpandedTaskId(expandedTaskId === taskId ? null : taskId);
+  };
 
-    fetchTasks();
-  }, []);
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle>Task List</CardTitle>
+        <div className="flex justify-between items-center">
+          <CardTitle>Task List</CardTitle>
+          <Button onClick={onRefresh}>Refresh</Button>
+        </div>
       </CardHeader>
       <CardContent>
-        {tasks.map((task, index) => (
-          <div key={index} className="border-b py-2">
-            <h3 className="font-bold">{task.title}</h3>
-            <p>{task.description}</p>
-            <p>Status: {task.status}</p>
-            {task.deadline && <p>Deadline: {task.deadline}</p>}
+        {tasks.map((task) => (
+          <div key={task.id} className="border-b py-2">
+            <h3 className="font-bold cursor-pointer" onClick={() => toggleTaskDetails(task.id)}>
+              {task.title}
+            </h3>
+            {expandedTaskId === task.id && (
+              <div>
+                <p>{task.description}</p>
+                <p>Status: {task.status}</p>
+                {task.deadline && <p>Deadline: {formatDate(task.deadline)}</p>}
+              </div>
+            )}
           </div>
         ))}
       </CardContent>
@@ -111,6 +121,20 @@ const TaskList = () => {
 const ProductivityTracker = () => {
   const [tasks, setTasks] = useState([]);
 
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/tasks');
+      const data = await response.json();
+      setTasks(data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
   const handleTaskCreated = (newTask) => {
     setTasks(prevTasks => [...prevTasks, newTask]);
   };
@@ -119,7 +143,7 @@ const ProductivityTracker = () => {
     <div className="container mx-auto p-4 flex flex-col items-center space-y-4">
       <h1 className="text-2xl font-bold">Productivity Tracker</h1>
       <CreateTask onTaskCreated={handleTaskCreated} />
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} onRefresh={fetchTasks} />
     </div>
   );
 };
