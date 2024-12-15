@@ -65,17 +65,11 @@ Use an external AI API (like Google gemini AI) or integrate Crystal with Python 
 
 # Running Part 
 
-Backend :
-## Compile the project
-crystal build src/productivity_tracker.cr
-
-## Run the application
-./productivity_tracker
-
-
-Frontend :
+## Frontend :
 npm run dev
 
+## Backend
+crystal src/productivity_tracker.cr
 
 Testing Endpoints: 
 ## Create a task
