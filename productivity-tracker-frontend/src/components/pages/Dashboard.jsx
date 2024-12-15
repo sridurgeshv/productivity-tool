@@ -5,6 +5,7 @@ import Pomodoro from './Pomodoro';
 import Links from '../pages/Links';
 import Navbar from './Navbar';
 import Taskslist from './Taskslist';
+import SettingsButton from './SettingsButton';
 
 function Dashboard() {
     const [tasks, setTasks] = useState([]);
@@ -49,6 +50,7 @@ function Dashboard() {
           {showPomodoro && (
             <Pomodoro onClose={togglePomodoro} addTrackedTask={addTrackedTask} />
           )}
+          <SettingsButton />
         </div>
       );
     }
