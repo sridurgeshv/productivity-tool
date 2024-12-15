@@ -14,6 +14,19 @@ module ProductivityTracker
         env.response.status_code = 204
       end
 
+      # Serve current date
+      get "/current-date" do |env|
+        current_time = Time.local
+        current_date = {
+          day: current_time.day,
+          month: current_time.month,
+          year: current_time.year
+        }
+        env.response.content_type = "application/json"
+        env.response.headers["Access-Control-Allow-Origin"] = "*"
+        env.response.print(current_date.to_json)
+      end
+
       # Create a new task
       post "/tasks" do |env|
         begin
