@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './config/firebase';
 import { useState, useEffect } from 'react';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ProductivityTracker from './components/pages/Tasklist';
 import HomePage from './components/pages/HomePage';
 import Dashboard from './components/pages/Dashboard';
@@ -32,6 +33,7 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <div>     
         <Routes>
@@ -56,6 +58,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    </AuthProvider>
   );
 }
 

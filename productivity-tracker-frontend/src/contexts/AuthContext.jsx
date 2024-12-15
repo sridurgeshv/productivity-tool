@@ -3,10 +3,14 @@ import { auth, googleProvider } from '../config/firebase';
 import { signInWithPopup, signOut, updateProfile, onAuthStateChanged } from 'firebase/auth';
 import axios from 'axios';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 }
 
 export function AuthProvider({ children }) {
@@ -15,6 +19,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      console.log('Auth State Changed:', currentUser);
+      
       if (currentUser) {
         const userData = {
           uid: currentUser.uid,
@@ -28,13 +34,15 @@ export function AuthProvider({ children }) {
           setUser(userData);
         } catch (error) {
           console.error('Error saving user data:', error);
+          // Fallback to setting user data even if backend save fails
+          setUser(userData);
         }
       } else {
         setUser(null);
       }
       setLoading(false);
     });
-
+  
     return () => unsubscribe();
   }, []);
 
@@ -76,12 +84,13 @@ export function AuthProvider({ children }) {
     signInWithGoogle,
     setUser,
     logout,
-    updateUser
+    updateUser,
+    loading // Expose loading state
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }

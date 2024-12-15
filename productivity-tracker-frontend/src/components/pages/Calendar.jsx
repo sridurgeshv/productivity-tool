@@ -6,7 +6,7 @@ function Calendar() {
   const [displayedDate, setDisplayedDate] = useState({ month: null, year: null });
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5173/current-date')
+    fetch('http://localhost:3000/current-date')
       .then(response => response.json())
       .then(data => {
         setCurrentDate(data);
