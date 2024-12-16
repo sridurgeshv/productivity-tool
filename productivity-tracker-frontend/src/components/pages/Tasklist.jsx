@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
+import '../globals/Tasklist.css';
 
 // Task Creation Component
 const CreateTask = ({ onTaskCreated }) => {
