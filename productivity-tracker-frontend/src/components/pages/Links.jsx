@@ -8,7 +8,7 @@ function Links() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5173/links')
+    fetch('http://localhost:3000/links')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -30,7 +30,7 @@ function Links() {
       return;
     }
 
-    fetch('http://127.0.0.1:5173/links', {
+    fetch('http://localhost:3000/links', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,6 +55,22 @@ function Links() {
       });
   };
 
+  const handleDeleteLink = (id) => {
+    fetch(`http://localhost:3000/links/${id}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to delete link');
+        }
+        setLinks(links.filter(link => link.id !== id));
+      })
+      .catch(error => {
+        console.error('Error deleting link:', error);
+        setErrorMessage('Failed to delete link. Please try again.');
+      });
+  };
+
   return (
     <div className="links-container card">
       {!showAddForm ? (
@@ -66,7 +82,8 @@ function Links() {
           <div className="links-list">
             {links.map(link => (
               <div key={link.id} className="link-item">
-                <span className="link-text">{link.title}</span>
+                <a href={link.url} target="_blank" rel="noopener noreferrer" className="link-text">{link.title}</a>
+                <button className="delete-button" onClick={() => handleDeleteLink(link.id)}>Delete</button>
               </div>
             ))}
           </div>

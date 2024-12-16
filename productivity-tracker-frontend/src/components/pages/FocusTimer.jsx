@@ -1,131 +1,147 @@
-import React, { useState, useEffect } from 'react';
-import BinauralBeats from './BinauralBeats';
-import '../globals/FocusTimer.css';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import "../globals/FocusTimer.css";
+import BinauralBeats from "./BinauralBeats"; // Import BinauralBeats component
 
-const FocusTimer = ({ initialMinutes = 25, onClose, addTrackedTask }) => {
-  const [seconds, setSeconds] = useState(initialMinutes * 60);
+const FocusTimerPage = () => {
+  const location = useLocation();
+  const { title } = location.state || { title: "Default Task" };
+
+  // Timer states
+  const [seconds, setSeconds] = useState(25 * 60); // Default Pomodoro time
   const [isRunning, setIsRunning] = useState(true);
-  const [focusTask, setFocusTask] = useState('');
-  const [totalFocusedTime, setTotalFocusedTime] = useState(0);
-  const [isBreak, setIsBreak] = useState(false);
-  const [showBinauralBeats, setShowBinauralBeats] = useState(false);
-  const [currentAudio, setCurrentAudio] = useState(null);
+  const [mode, setMode] = useState("Pomodoro"); // Modes: Pomodoro, Short Break
+  const [trackedTasks, setTrackedTasks] = useState([]);
+  const [activeAudio, setActiveAudio] = useState(null);
 
+  // Timer effect
   useEffect(() => {
-    let interval = null;
+    let timer;
     if (isRunning && seconds > 0) {
-      interval = setInterval(() => {
-        setSeconds(seconds => seconds - 1);
-        if (!isBreak) {
-          setTotalFocusedTime(time => time + 1);
-        }
-      }, 1000);
-    } else if (seconds === 0) {
-      if (isBreak) {
-        handleStop();
-      } else {
-        setIsBreak(true);
-        setSeconds(5 * 60); // 5 minutes break
-      }
+      timer = setInterval(() => setSeconds((prev) => prev - 1), 1000);
     }
-    return () => clearInterval(interval);
-  }, [isRunning, seconds, isBreak]);
+    return () => clearInterval(timer);
+  }, [isRunning, seconds]);
 
-  const handlePauseResume = () => {
-    setIsRunning(!isRunning);
-  };
-
-  const handleStop = () => {
-    setIsRunning(false);
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
+  // Switch Mode Logic
+  const switchMode = (newMode) => {
+    setMode(newMode);
+    if (newMode === "Pomodoro") {
+      setSeconds(25 * 60);
+    } else if (newMode === "Short Break") {
+      setSeconds(5 * 60); // Set Short Break time to 5 minutes
     }
-    if (focusTask) {
-      fetch('http://127.0.0.1:8080/tracked-tasks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title: focusTask, time: Math.floor(totalFocusedTime / 60) }),
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Task tracked successfully:', data);
-          addTrackedTask(data);
-        })
-        .catch(error => {
-          console.error('Error posting tracked task:', error);
-        });
-    }
-    onClose();
-  };
-
-  const formatTime = (timeInSeconds) => {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const remainingSeconds = timeInSeconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
-
-  const switchMode = () => {
-    setIsBreak(!isBreak);
-    setSeconds(isBreak ? initialMinutes * 60 : 5 * 60);
     setIsRunning(true);
   };
 
-  const toggleBinauralBeats = () => {
-    setShowBinauralBeats(!showBinauralBeats);
+  const stopFocusSession = () => {
+    if (mode === "Pomodoro") { // Only track tasks in Pomodoro mode
+      const timeSpent = 25 * 60 - seconds;
+  
+      fetch("http://localhost:3000/tracked-tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, time: timeSpent, mode }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setTrackedTasks((prev) => [...prev, data]);
+        })
+        .catch((err) => console.error("Error:", err));
+    }
+  
+    // Always stop the timer regardless of mode
+    setIsRunning(false);
+  };
+  
+  // Fetch tracked tasks
+  useEffect(() => {
+    fetch("http://localhost:3000/tracked-tasks")
+      .then((res) => res.json())
+      .then((data) => setTrackedTasks(data))
+      .catch((err) => console.error("Error fetching tasks:", err));
+  }, []);
+
+  const deleteTrackedTask = (id) => {
+    fetch(`http://localhost:3000/tracked-tasks/${id}`, { method: "DELETE" })
+      .then((res) => {
+        if (res.ok) {
+          setTrackedTasks((prev) => prev.filter((task) => task.id !== id));
+        } else {
+          console.error("Failed to delete task");
+        }
+      })
+      .catch((err) => console.error("Error deleting task:", err));
   };
 
   const handleMusicStart = (audio) => {
-    setCurrentAudio(audio);
+    if (activeAudio) {
+      activeAudio.pause();
+    }
+    setActiveAudio(audio);
   };
 
   return (
     <div className="focus-timer-overlay">
+      {/* Binaural Beats Section */}
+      <BinauralBeats onMusicStart={handleMusicStart} />
+  
       <div className="focus-timer">
-        <button className="close-button" onClick={handleStop}>&#10540;</button>
-        <div className="top-bar">
-          <div className="icons-left">
-            <span className="icon">🔗</span>
-            <span className="icon" onClick={toggleBinauralBeats}>&#127911;</span>
-          </div>
-          <div className="focus-time">
-            {Math.floor(totalFocusedTime / 60)}m Focused Today
-          </div>
-        </div>
-        {showBinauralBeats && (
-          <div className="binaural-beats-container">
-            <BinauralBeats onMusicStart={handleMusicStart} />
-          </div>
-        )}
-        <div className="timer-container">
-          <div className="timer-tabs">
-            <button className={`tab ${!isBreak ? 'active' : ''}`} onClick={() => !isBreak && switchMode()}>FOCUS</button>
-            <button className={`tab ${isBreak ? 'active' : ''}`} onClick={() => isBreak && switchMode()}>BREAK</button>
-          </div>
-          <div className="timer">{formatTime(seconds)}</div>
-          {!isBreak ? (
-            <input
-              type="text"
-              className="focus-input"
-              placeholder="I will focus on..."
-              value={focusTask}
-              onChange={(e) => setFocusTask(e.target.value)}
-            />
-          ) : (
-            <div className="break-message">Take a break</div>
-          )}
-          <button className="pause-button" onClick={handlePauseResume}>
-            {isRunning ? 'PAUSE' : 'RESUME'}
+        <h1>Pomodoro Timer</h1>
+  
+        {/* Task Title */}
+        <h2>Task: {title}</h2>
+  
+        {/* Mode Switcher */}
+        <div className="mode-switcher">
+          <button
+            onClick={() => switchMode("Pomodoro")}
+            className={mode === "Pomodoro" ? "active" : ""}
+          >
+            Pomodoro
+          </button>
+          <button
+            onClick={() => switchMode("Short Break")}
+            className={mode === "Short Break" ? "active" : ""}
+          >
+            Short Break
           </button>
         </div>
-        <div className="bottom-quote">
-          I am focused on a single direction and one task at a time.
+  
+        {/* Timer Section */}
+        <div className="timer-display">
+          <h2>{mode}</h2>
+          <p>{`${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`}</p>
+          <div>
+            <button onClick={() => setIsRunning(true)}>Start</button>
+            <button onClick={() => setIsRunning(false)}>Pause</button>
+            <button onClick={stopFocusSession}>Stop</button>
+          </div>
         </div>
+  
+        {/* Tracked Tasks - Render only in Pomodoro mode */}
+        {mode === "Pomodoro" && (
+          <div className="tracked-tasks">
+            <h3>Tracked Tasks</h3>
+            <ul>
+              {trackedTasks.map((task, index) => (
+                <li key={index}>
+                  {task.title} - {task.mode} -{" "}
+                  {Math.floor(task.time / 60)} min {task.time % 60} sec
+                  <button
+                    onClick={() => deleteTrackedTask(task.id)}
+                    style={{ marginLeft: "10px", color: "red" }}
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
-  );
+  );  
 };
 
-export default FocusTimer;
+export default FocusTimerPage;

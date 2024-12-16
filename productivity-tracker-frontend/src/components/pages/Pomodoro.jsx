@@ -1,33 +1,22 @@
-import React, { useState } from 'react';
-import focusIcon from '../../assets/focus.png'; 
-import FocusTimer from './FocusTimer';
-import '../globals/Pomodoro.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import focusIcon from "../../assets/focus.png";
+import "../globals/Pomodoro.css";
 
-const Pomodoro = ({ onClose, addTrackedTask }) => {
+const Pomodoro = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [pomodoroEnabled, setPomodoroEnabled] = useState(false);
-  const [soundscapesEnabled, setSoundscapesEnabled] = useState(false);
-  const [showFocusTimer, setShowFocusTimer] = useState(false);
+  const [taskTitle, setTaskTitle] = useState("");
+  const navigate = useNavigate();
 
-  const togglePomodoro = () => {
-    setIsOpen(!isOpen);
-  };
+  const togglePomodoro = () => setIsOpen(!isOpen);
 
   const startFocusing = () => {
-    if (pomodoroEnabled && soundscapesEnabled) {
-      setShowFocusTimer(true);
-      setIsOpen(false);
+    if (taskTitle.trim()) {
+      navigate("/focus-timer", { state: { title: taskTitle } });
+    } else {
+      alert("Enter a task title!");
     }
   };
-
-  const handleCloseFocusTimer = () => {
-    setShowFocusTimer(false);
-    onClose();
-  };
-
-  if (showFocusTimer) {
-    return <FocusTimer initialMinutes={25} onClose={handleCloseFocusTimer} addTrackedTask={addTrackedTask} />;
-  }
 
   return (
     <div className="pomodoro-container">
@@ -38,46 +27,21 @@ const Pomodoro = ({ onClose, addTrackedTask }) => {
       {isOpen && (
         <div className="pomodoro-popup">
           <div className="popup-header">
-            <span>
-              <span role="img" aria-label="Brain emoji">🧠</span> Focus Mode
-            </span>
-            <button className="close-button" onClick={() => setIsOpen(false)}>×</button>
+            <span>🧠 Focus Mode</span>
+            <button onClick={() => setIsOpen(false)} className="close-button">×</button>
           </div>
           <div className="popup-content">
             <div className="option">
-              <span>Pomodoro</span>
-              <div className="option-details">
-                <span>Focus for 25 mins, rest for 5 mins</span>
-                <label className="switch">
-                  <input 
-                    type="checkbox" 
-                    checked={pomodoroEnabled}
-                    onChange={() => setPomodoroEnabled(!pomodoroEnabled)}
-                  />
-                  <span className="slider"></span>
-                </label>
-              </div>
+              <span>Task Title</span>
+              <input
+                type="text"
+                placeholder="Specify Your Task"
+                value={taskTitle}
+                onChange={(e) => setTaskTitle(e.target.value)}
+              />
             </div>
-            <div className="option">
-              <span>Soundscapes</span>
-              <div className="option-details">
-                <span>Scene: Campfire</span>
-                <label className="switch">
-                  <input 
-                    type="checkbox" 
-                    checked={soundscapesEnabled}
-                    onChange={() => setSoundscapesEnabled(!soundscapesEnabled)}
-                  />
-                  <span className="slider"></span>
-                </label>
-              </div>
-            </div>
-            <button 
-              className={`start-focus-button ${pomodoroEnabled && soundscapesEnabled ? 'active' : 'disabled'}`} 
-              onClick={startFocusing}
-              disabled={!(pomodoroEnabled && soundscapesEnabled)}
-            >
-              Start focusing
+            <button className="start-focus-button" onClick={startFocusing}>
+              Start Focusing
             </button>
           </div>
         </div>

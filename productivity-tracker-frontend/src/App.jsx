@@ -8,6 +8,7 @@ import ProductivityTracker from './components/pages/Tasklist';
 import HomePage from './components/pages/HomePage';
 import Dashboard from './components/pages/Dashboard';
 import Login from './components/pages/Login';
+import FocusTimer from './components/pages/FocusTimer';
 import './App.css';
 
 // Protected Route Component
@@ -32,6 +33,10 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
+  const addTrackedTask = (task) => {
+    console.log('Task tracked:', task);
+  };
+
   return (
     <AuthProvider>
     <Router>
@@ -54,7 +59,8 @@ function App() {
                 <Dashboard />
               </ProtectedRoute>
             }
-          />          
+          />      
+          <Route path="/focus-timer" element={<FocusTimer addTrackedTask={addTrackedTask} />} />       
         </Routes>
       </div>
     </Router>

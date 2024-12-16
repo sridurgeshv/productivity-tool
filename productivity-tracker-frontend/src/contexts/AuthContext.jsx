@@ -30,7 +30,7 @@ export function AuthProvider({ children }) {
         };
         
         try {
-          await axios.post('http://localhost:5000/api/save-user', userData);
+          await axios.post('http://localhost:3000/api/save-user', userData);
           setUser(userData);
         } catch (error) {
           console.error('Error saving user data:', error);
@@ -64,7 +64,7 @@ export function AuthProvider({ children }) {
     try {
       await updateProfile(auth.currentUser, updatedData);
       
-      const response = await axios.post('http://localhost:5000/api/update-user', {
+      const response = await axios.post('http://localhost:3000/api/update-user', {
         uid: user.uid,
         ...updatedData
       });

@@ -1,9 +1,18 @@
-require "./spec_helper"
+require "kemal"
+require "./controllers/task_controller"
+require "./database/db_connection"
 
-describe ProductivityTracker do
-  # TODO: Write tests
+module ProductivityTracker
+  Database.init_schema
+  TaskController.setup_routes
 
-  it "works" do
-    false.should eq(true)
-  end
+  Kemal.run
+
+  before_all do |env|
+    env.response.headers["Access-Control-Allow-Origin"] = "*"
+    env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    env.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+
+end
+
 end
