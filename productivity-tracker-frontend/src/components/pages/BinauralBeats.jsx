@@ -32,7 +32,7 @@ const BinauralBeats = ({ onMusicStart }) => {
     stopAudio();
 
     try {
-      const response = await fetch(`http://127.0.0.1:8080/api/music/${category}`);
+      const response = await fetch(`http://localhost:3000/api/music/${category}`);
       const data = await response.json();
 
       const newAudio = new Audio(data.url);
