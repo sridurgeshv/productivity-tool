@@ -3,11 +3,9 @@ import { useLocation } from "react-router-dom";
 import "../globals/FocusTimer.css";
 import BinauralBeats from "./BinauralBeats"; // Import BinauralBeats component
 
-const FocusTimerPage = () => {
+const FocusTimerPage = ({onClose}) => {
   const location = useLocation();
   const { title } = location.state || { title: "Default Task" };
-
-  // Timer states
   const [seconds, setSeconds] = useState(25 * 60); // Default Pomodoro time
   const [isRunning, setIsRunning] = useState(true);
   const [mode, setMode] = useState("Pomodoro"); // Modes: Pomodoro, Short Break
@@ -81,11 +79,39 @@ const FocusTimerPage = () => {
     setActiveAudio(audio);
   };
 
+  const handleStop = () => {
+    setIsRunning(false);
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+    if (focusTask) {
+      fetch('http://localhost:3000/tracked-tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title: focusTask, time: Math.floor(totalFocusedTime / 60) }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Task tracked successfully:', data);
+          addTrackedTask(data);
+        })
+        .catch(error => {
+          console.error('Error posting tracked task:', error);
+        });
+    }
+    onClose();
+  };
+
   return (
     <div className="focus-timer-overlay">
+      <div className="focus-timer-header">
       {/* Binaural Beats Section */}
       <BinauralBeats onMusicStart={handleMusicStart} />
-  
+      <button className="close-button" onClick={handleStop}>&#10540;</button>
+      </div>
       <div className="focus-timer">
         <h1>Pomodoro Timer</h1>
   
