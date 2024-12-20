@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SettingsIcon } from 'lucide-react';
-import Sidebar from './Sidebar';
+import { useNavigate } from 'react-router-dom';
 import '../globals/Dashboard.css';
 
 const SettingsButton = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
+  const navigate = useNavigate();
 
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
+  const handleButtonClick = () => {
+    navigate('/settings');
   };
 
   return (
     <div className="settings-button-container">
-      <button className="settings-button" onClick={toggleSidebar}>
+      <button className="settings-button" onClick={handleButtonClick}>
         <SettingsIcon size={24} />
       </button>
-      {showSidebar && <Sidebar onClose={toggleSidebar} />}
     </div>
   );
 };
