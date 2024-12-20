@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../../config/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { Button } from '../ui/button';
+import '../globals/Login.css';
 
 const Login = () => {
   const [error, setError] = useState('');
@@ -18,14 +19,18 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="login-container">
-        <h2>Login</h2>    
-        <Button onClick={handleGoogleSignIn}>
-          <img src="https://cdn.cdnlogo.com/logos/g/35/google-icon.svg" alt="Google" />                
+    <div className="login-wrapper">
+      <div className="login-card">
+        <h2 className="login-title">Login</h2>    
+        <Button className="google-auth-btn" onClick={handleGoogleSignIn}>
+          <img 
+            className="google-icon"
+            src="https://cdn.cdnlogo.com/logos/g/35/google-icon.svg" 
+            alt="Google" 
+          />                
           Sign in with Google
         </Button>
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="error-message">{error}</p>}
       </div>
     </div>
   );

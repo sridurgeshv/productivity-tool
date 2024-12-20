@@ -1,0 +1,67 @@
+.login-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 1rem;
+  }
+  
+  .login-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1a202c;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .google-auth-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem;
+    color: white;
+    background-color: lightblue;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+  }
+  
+  .google-auth-btn:hover {
+    background-color: blue;
+    border-color: #cbd5e0;
+    transform: translateY(-1px);
+  }
+  
+  .google-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .error-message {
+    color: #e53e3e;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+  }
+  
+  @media (max-width: 640px) {
+    .login-card {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .login-title {
+      font-size: 1.5rem;
+    }
+  }
