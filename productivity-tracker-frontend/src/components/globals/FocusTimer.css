@@ -24,14 +24,13 @@
 }
 
 
-/* Motivational Quote Style */
 .focus-timer-header {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
-  max-width: 700px; /* Adjust to fit your design */
+  max-width: 700px; 
   background: linear-gradient(135deg, #cd60b5, #e79aa8);
   border-radius: 10px;
   padding: 1rem;
@@ -76,10 +75,8 @@
   width: 100%;
   text-align: center;
   animation: fadeIn 0.8s ease-in-out;
-  
 }
 
-/* Heading */
 .focus-timer h1 {
   font-size: 2rem;
   color: #444;
