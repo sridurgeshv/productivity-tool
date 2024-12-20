@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
           await axios.post('http://localhost:3000/api/save-user', userData);
           setUser(userData);
         } catch (error) {
-          console.error('Error saving user data:', error);
+          console.error('Error saving user data:', error.response ? error.response.data : error.message);
           // Fallback to setting user data even if backend save fails
           setUser(userData);
         }
@@ -51,7 +51,7 @@ export function AuthProvider({ children }) {
       const result = await signInWithPopup(auth, googleProvider);
       return result.user;
     } catch (error) {
-      console.error('Error signing in with Google:', error);
+      console.error('Error signing in with Google:', error.response ? error.response.data : error.message);
       throw error;
     }
   };
@@ -74,7 +74,7 @@ export function AuthProvider({ children }) {
         return true;
       }
     } catch (error) {
-      console.error('Error updating user:', error);
+      console.error('Error updating user:', error.response ? error.response.data : error.message);
       return false;
     }
   };
