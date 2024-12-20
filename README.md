@@ -1,81 +1,53 @@
-## Winning Project Idea: A Smart Productivity Tracker with AI-Powered Suggestions 
+## Smart Productivity Tracker with AI Suggestions
+A modern productivity management system built with Crystal backend and React frontend, featuring AI-powered suggestions, task management, time tracking, and more.
 
-Problem Statement:With increasing workloads, staying productive while maintaining work-life balance is challenging. Existing tools are either too basic or overly complicated. 
+## Key Features
 
-### Solution: Build a Smart Productivity Tracker that: 
-1. Tracks tasks, time, and focus sessions (e.g., Pomodoro). 
-2. Analyzes user productivity patterns. 
-3. Provides personalized suggestions for improvement using AI (e.g., recommending breaks, specific task prioritization). 
-4. Offers lightweight desktop and mobile integration. 
+Dashboard Overview: Once authenticated, users are redirected to the dashboard, which serves as the control center. Here, users can access various components such as the Calendar, Tasks section , pomodoro section aligned with focus timer , my inventory for link management , AI suggestion integration and settings page.
 
-### Key Features to Implement: 
-1. Task and Time Management: * Add and track tasks with deadlines. * Monitor work sessions (Pomodoro Timer). 
-2. AI-Powered Insights: * Analyze task completion rates, focus time, and distractions. * Provide actionable insights (e.g., "You’re more productive in the morning"). 
-3. Real-Time Collaboration: * Allow multiple users to join a workspace and share tasks. *
-*4. Binaural Beats Integration: * Play productivity-enhancing music during work sessions. 
-5. Gamification:  Add streaks, badges, and leaderboards for motivation.
+Task Management: The dedicated Tasks page allows users to enter tasks, describe the task description and set deadlines. If they want they can also delete or edit the task details .The dashboard automatically updates with this information, ensuring users stay on top of their to-do list.
 
-## Architecture Overview: 
+Calendar: Displays the current date and integrates with the Tasks feature, providing a visual overview of upcoming deadlines.
 
-### Backend: 
-- Use Crystal to build a RESTful API. 
-- Handle task management, real-time updates, and AI integration. 
-- Use libraries like Kemal for lightweight web servers. 
+AI Integration : Where users can ask for productivity suggestions , tips , can ask ai to give them a plan to follow for a day or what not.
 
-### Frontend: 
-- Use React or Vue.js for a polished, interactive user interface. 
+My Inventory: A personalized links storage section where users can save and organize URLs without cluttering their browser bookmarks.
 
-### Database: 
-Use SQLite or PostgreSQL for task and user data storage. 
-
-### AI Integration: 
-Use an external AI API (like Google gemini AI) or integrate Crystal with Python libraries for advanced insights. 
-
-## Winning Project Idea: A Smart Productivity Tracker with AI-Powered Suggestions 
-
-### Problem Statement: With increasing workloads, staying productive while maintaining work-life balance is challenging. Existing tools are either too basic or overly complicated. 
-
-### Solution: Build a Smart Productivity Tracker that: 
-1. Tracks tasks, time, and focus sessions (e.g., Pomodoro). 
-2. Analyzes user productivity patterns. 
-3. Provides personalized suggestions for improvement using AI (e.g., recommending breaks, specific task prioritization). 
-4. Offers lightweight desktop and mobile integration. 
-
-### Key Features to Implement: 
-1. Task and Time Management: * Add and track tasks with deadlines. * Monitor work sessions (Pomodoro Timer). 
-2. AI-Powered Insights: * Analyze task completion rates, focus time, and distractions. * Provide actionable insights (e.g., "You’re more productive in the morning"). 
-3. Real-Time Collaboration: * Allow multiple users to join a workspace and share tasks. *
-*4. Binaural Beats Integration: * Play productivity-enhancing music during work sessions. 
-5. Gamification:  Add streaks, badges, and leaderboards for motivation.
-
-### Architecture Overview: 
-
-#### Backend: 
-- Use Crystal to build a RESTful API. 
-- Handle task management, real-time updates, and AI integration. 
-- Use libraries like Kemal for lightweight web servers. 
-
-### Frontend: 
-- Use React or Vue.js for a polished, interactive user interface. 
-### Database: 
-- Use SQLite or PostgreSQL for task and user data storage. 
-### AI Integration: 
-- Use an external AI API (like Google gemini AI) or integrate Crystal with Python libraries for advanced insights. 
+Pomodoro with focus timer Integration: 
+- The app includes a Pomodoro button which can clicked on redirect to focus-timer section which include timer for 25 minutes of work on a particular task followed by a 5-minute break to enhance concentration and productivity.
+-  Users can track their progress in the Tracking List, which syncs with the Pomodoro cycles.
+-  Users can also choose from various music categories—Relax, Focus, Energize, Sleep, and Meditate—to complement their work sessions.
+-  Have a motivational quote feature powered by ai to help user stay focused on there task
 
 
-# Running Part 
+Why Choose Productivity Hub?
+Productivity Hub is more than just a task manager—it's a comprehensive productivity tool that helps users streamline their workflows, stay focused, and achieve their goals. Whether you need to manage tasks, store important links, track your work with Pomodoro, or simply jot down distracting thoughts, Productivity Hub has you covered.
 
-## Frontend :
-npm run dev
+Installation Instructions
+To use Smart Productivity Tracker with AI suggestion locally, follow these steps:
 
-## Backend
-crystal src/productivity_tracker.cr
+Clone the Repository
+First, clone the repository from GitHub:
 
-Testing Endpoints: 
-## Create a task
-curl -X POST http://localhost:3000/tasks \
-     -H "Content-Type: application/json" \
-     -d '{"title":"Complete Project Setup","description":"Initialize Crystal project"}'
+git clone 
+Frontend Setup
+Navigate to the frontend directory in your terminal.
+cd taskaroo-dashboard
+Install the required node modules:
+npm install
+export NODE_OPTIONS=--openssl-legacy-provider
+Start the frontend application:
+npm start
+Backend Setup
+Install the rust and cargo from Here on your local machine.
+Navigate to the backend directory in another terminal.
+cd taskbar-backend
+Build the backend application:
+cargo build
+Start the backend server:
+cargo run
+View the Application
+Once both the frontend and backend are running, you can view the Productivity Hub in your browser by navigating to http://localhost:3000.
 
-## List tasks
-curl http://localhost:3000/tasks
+Video Demo
+To see Productivity Hub in action, check out our video demonstration. The video provides an overview of the app's features and shows how to navigate and use the tool effectively.
