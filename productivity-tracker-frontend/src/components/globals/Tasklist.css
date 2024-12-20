@@ -1,138 +1,167 @@
 /* General App Styles */
 body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  color: #FF0066;
+  text-shadow: 2px 2px 4px rgba(255, 0, 102, 0.3);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Card Component Styles */
+.card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 500px;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  color: #FF0066;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.card-content {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Input and Textarea */
+input, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 2px solid #FF0066;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background-color: #FFF8F0;
+}
+
+input:focus, textarea:focus {
+  border-color: #FC00FF;
+  outline: none;
+  box-shadow: 0 0 4px rgba(252, 0, 255, 0.4);
+}
+
+/* Buttons */
+button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  transform: translateY(-4px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button.primary {
+  background: linear-gradient(90deg, #FF0066, #FF8C00);
+}
+
+button.secondary {
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+}
+
+/* Task List Styling */
+.task-item {
+  padding: 1rem;
+  background: linear-gradient(90deg, #FFDEE9, #FC00FF);
+  color: #fff;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.task-item:hover {
+  transform: scale(1.05);
+}
+
+.task-item h3 {
+  margin: 0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.task-item p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.task-item button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.task-item button.delete {
+  background: #FF3E3E;
+  border: none;
+  border-radius: 8px;
+}
+
+.task-item button.edit {
+  background: #00B2FF;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Edit Form */
+.edit-form {
+  background: #FFF;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
   }
-  
-  h1 {
-    color: #FF0066;
-    text-shadow: 2px 2px 4px rgba(255, 0, 102, 0.3);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* Card Component Styles */
-  .card {
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    margin: 1rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  }
-  
-  .card-title {
-    font-size: 1.5rem;
-    color: #333;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  .card-content {
-    color: #555;
-  }
-  
-  /* Input and Textarea */
-  input, textarea {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 2px solid #FF0066;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-    background-color: #FFF8F0;
-  }
-  
-  input:focus, textarea:focus {
-    border-color: #FF00C8;
-    outline: none;
-  }
-  
-  /* Buttons */
-  button {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  button:hover {
-    transform: translateY(-4px);
-  }
-  
-  button:active {
-    transform: translateY(0);
-  }
-  
-  button.primary {
-    background: linear-gradient(90deg, #FF0066, #FF8C00);
-  }
-  
-  button.secondary {
-    background: linear-gradient(90deg, #00DBDE, #FC00FF);
-  }
-  
-  /* Task List Styling */
-  .task-item {
-    padding: 1rem;
-    background: linear-gradient(90deg, #FFDEE9, #FC00FF);
-    color: #fff;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .task-item h3 {
-    margin: 0;
-    cursor: pointer;
-  }
-  
-  .task-item p {
-    margin: 0.5rem 0;
-  }
-  
-  .task-item button {
-    margin-right: 0.5rem;
-  }
-  
-  .task-item button.delete {
-    background: #FF3E3E;
-  }
-  
-  .task-item button.edit {
-    background: #00B2FF;
-  }
-  
-  /* Edit Form */
-  .edit-form {
-    background: #FFF;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 1rem;
-  }
-  
+}
