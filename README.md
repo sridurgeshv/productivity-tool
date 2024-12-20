@@ -59,7 +59,7 @@ shards install
 ```bash
 crystal src/productivity_tracker.cr
 ```
-Note: If any you did any change in database and want a new database simply run this command in backend directory
+Note: If you did did any change in database file and want a new database simply run this command in backend directory
 ```bash
 crystal src/database/init_db.cr
 ```
