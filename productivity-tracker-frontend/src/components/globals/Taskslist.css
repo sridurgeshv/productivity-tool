@@ -1,9 +1,20 @@
-/* General card styling */
+/* General Page Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
+  color: #333;
+}
+
+/* Tasks Card Styling */
 .tasks.card {
   background: linear-gradient(135deg, #f4f1f1, #9e9390);
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: 20px auto;
   color: #333;
   font-family: 'Poppins', sans-serif;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -14,7 +25,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
-/* Header */
+/* Card Header */
 .tasks.card h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
@@ -23,14 +34,14 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Task list container */
+/* Task List Container */
 .task-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Individual tasks */
+/* Individual Task Items */
 .task-list li {
   display: flex;
   align-items: center;
@@ -59,7 +70,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Checkbox styling */
+/* Checkbox Styling */
 .task-list input[type="checkbox"] {
   width: 20px;
   height: 20px;
@@ -68,20 +79,22 @@
   cursor: pointer;
 }
 
-/* Task title */
+/* Task Title */
 .task-list li span {
   font-size: 0.9rem;
   color: #555;
+  flex: 1;
 }
 
-/* Task deadline styling */
+/* Task Deadline */
 .task-date {
   font-size: 0.8rem;
   color: #888;
   font-style: italic;
+  text-align: right;
 }
 
-/* Media query for responsive design */
+/* Responsive Design */
 @media (max-width: 600px) {
   .tasks.card {
     padding: 15px;
@@ -97,7 +110,12 @@
     padding: 10px;
   }
 
+  .task-list li span {
+    margin-bottom: 8px;
+  }
+
   .task-date {
+    align-self: flex-end;
     margin-top: 5px;
   }
 }
