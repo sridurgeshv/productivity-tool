@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Home, Grid } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import '../globals/Navbar.css'
+import { useNavigate } from 'react-router-dom';
+import '../globals/Navbar.css';
 
 const Navbar = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, logout } = useAuth();
+  const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
 
-  // If still loading, you can return null or a loading indicator
   if (loading) {
     return (
       <nav className="navbar">
@@ -18,16 +20,23 @@ const Navbar = () => {
     );
   }
 
+  const handleSignOut = async () => {
+    try {
+      await logout();
+      setShowDropdown(false);
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <nav className="navbar">
-      {/* Left side - Title */}
       <div className="navbar-title">
         <h1>TaskMaster</h1>
       </div>
       
-      {/* Right side - Navigation Links and Profile */}
       <div className="navbar-menu">
-        {/* Navigation Links */}
         <div className="navbar-links">
           <a href="/dashboard" className="navbar-link">
             <Home size={20} />
@@ -39,22 +48,39 @@ const Navbar = () => {
           </a>
         </div>
         
-        {/* Profile Picture */}
         <div className="navbar-profile">
-        {user && user.photoURL ? (
-          <img
-            src={user.photoURL}
-            alt="Profile"
-            className="profile-image"
-            referrerPolicy="no-referrer"  // This is already correct
-          />
-        ) : (
-          <img 
-            src="/api/placeholder/50/50" 
-            alt="Profile" 
-            className="profile-image"
-          />
-        )}
+          <div className="profile-container">
+            <button 
+              className="profile-button"
+              onClick={() => setShowDropdown(!showDropdown)}
+            >
+              {user && user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="Profile"
+                  className="profile-image"
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                <img 
+                  src="/api/placeholder/50/50" 
+                  alt="Profile" 
+                  className="profile-image"
+                />
+              )}
+            </button>
+            {showDropdown && (
+              <div className="profile-dropdown">
+                <button 
+                  onClick={handleSignOut} 
+                  className="dropdown-item"
+                  type="button"
+                >
+                  Sign out
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>
