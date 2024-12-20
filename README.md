@@ -46,7 +46,7 @@ npm run dev
 ```
 
 ## Backend Setup
-1. Install the crystal from [Here](https://crystal-lang.org/install) according to your local machine.
+1. Install crystal from [Here](https://crystal-lang.org/install) according to your local machine.
 2. Navigate to the backend directory in another terminal.
 ```bash
 cd productivity_tracker
