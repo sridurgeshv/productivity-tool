@@ -480,29 +480,16 @@ post "/api/save-user" do |env|
     # Connect to the database
     db = Database.connect
 
-    # Check if the user already exists
-    user_exists = false
-    db.query("SELECT COUNT(*) FROM users WHERE uid = ?", user_id) do |rs|
-      user_exists = rs.read(Int32) > 0
-    end
+    # Insert the user into the users table
+    db.exec(
+      "INSERT INTO users (uid, email, display_name, photo_url) VALUES (?, ?, ?, ?)",
+      user_id, email, display_name, photo_url
+    )
 
-    if user_exists
-      # User already exists
-      env.response.content_type = "application/json"
-      env.response.status_code = 409 # Conflict
-      env.response.print({ message: "User details are already in the database" }.to_json)
-    else
-      # Insert the user into the users table
-      db.exec(
-        "INSERT INTO users (uid, email, display_name, photo_url) VALUES (?, ?, ?, ?)",
-        user_id, email, display_name, photo_url
-      )
-
-      # Send a success response
-      env.response.content_type = "application/json"
-      env.response.status_code = 201 # Created
-      env.response.print({ message: "User saved successfully" }.to_json)
-    end
+    # Send a success response
+    env.response.content_type = "application/json"
+    env.response.status_code = 201 # Created
+    env.response.print({ message: "User saved successfully" }.to_json)
 
     db.close
   rescue ex
@@ -511,8 +498,6 @@ post "/api/save-user" do |env|
     env.response.print({ error: ex.message }.to_json)
   end
 end
-
-
 
 # Get user details
 get "/api/get-user/:uid" do |env|
