@@ -1,5 +1,5 @@
 ## Smart Productivity Tracker with AI Suggestions
-A Smart productivity tracker system built with Crystal backend using libraries like Kemal for lightweight web servers and React frontend, featuring AI-powered suggestions, task management, time tracking, and link management and binaurial beats .
+A Smart productivity tracker system built with Crystal backend using libraries like Kemal for lightweight web servers and React frontend, featuring AI-powered suggestions, task management, time tracking, link management and binaurial beats .
 
 ## Key Features
 - **Dashboard Overview**: Once authenticated, users are redirected to the dashboard, which serves as the control center. Here, users can access various components such as the Calendar, Tasks section , pomodoro section aligned with focus timer , my inventory for link management , AI suggestion integration and settings page.
