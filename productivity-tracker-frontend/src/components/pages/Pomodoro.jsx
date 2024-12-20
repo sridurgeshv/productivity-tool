@@ -35,7 +35,7 @@ const Pomodoro = () => {
               <span>Task Title</span>
               <input
                 type="text"
-                placeholder="Specify Your Task"
+                placeholder="Specify the task you will focus on"
                 value={taskTitle}
                 onChange={(e) => setTaskTitle(e.target.value)}
               />
