@@ -28,6 +28,13 @@ module ProductivityTracker
         title TEXT NOT NULL,
         url TEXT NOT NULL
       )"
+      db.exec "CREATE TABLE IF NOT EXISTS users (
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  uid TEXT UNIQUE NOT NULL,
+  email TEXT NOT NULL,
+  display_name TEXT,
+  photo_url TEXT
+  )"
       db.close
     end
   end
