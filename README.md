@@ -7,7 +7,7 @@ A Smart productivity tracker system built with Crystal backend using libraries l
 - **Calendar**: Displays the current date and integrates with the Tasks feature, providing a visual overview of upcoming deadlines.
 - **AI Integration**: Where users can ask for productivity suggestions , tips , can ask ai to give them a plan to follow for a day or what not.
 - **My Inventory**: A personalized links storage section where users can save and organize URLs without cluttering their browser bookmarks.
-- **Pomodoro with focus timer Integration**: - The app includes a Pomodoro button which can clicked on redirect to focus-timer section which include timer for 25 minutes of work on a particular task followed by a 5-minute break to enhance concentration and productivity.
+- **Pomodoro with focus timer Integration**: - The app includes a Pomodoro button which when clicked on redirect you to focus-timer section which include timer for 25 minutes of work on a particular task followed by a 5-minute break to enhance concentration and productivity.
 -  Users can track their progress in the Tracking List, which syncs with the focus-timer cycles.
 -  Users can also choose from various music categories—Relax, Focus, Energize, Sleep, and Meditate—to complement their work sessions.
 -  Have a motivational quote feature powered by ai to help user stay focused on there task
