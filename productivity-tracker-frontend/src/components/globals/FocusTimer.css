@@ -6,34 +6,11 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Overlay Background */
-.focus-timer-overlay {
-  background : none;
-  height: 85vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #333;
-}
-
-
 .close-button {
   font-size: 24px;
   cursor: pointer;
 }
   
-/* Timer Container */
-.focus-timer {
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  max-width: 80vw;
-  width: 100%;
-  text-align: center;
-  animation: fadeIn 0.8s ease-in-out;
-}
   
 @keyframes fadeIn {
   from {
@@ -45,7 +22,63 @@
     transform: translateY(0);
   }
 }
+
+
+/* Motivational Quote Style */
+.focus-timer-header {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 700px; /* Adjust to fit your design */
+  background: linear-gradient(135deg, #cd60b5, #e79aa8);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.focus-timer-header h3 {
+  font-size: 1.25rem;
+  color: #fff;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Overlay Background */
+.focus-timer-overlay {
+  background: none;
+  height: 85vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+/* Close Button */
+.close-button {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Timer Container */
+.focus-timer {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  margin-top: 180px;
+  max-width: 80vw;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.8s ease-in-out;
   
+}
+
 /* Heading */
 .focus-timer h1 {
   font-size: 2rem;
@@ -164,8 +197,8 @@
 /* Binaural Beats Section */
 .binaural-beats {
   position: absolute;
-  top: 1.25rem;
-  left: 1.25rem;
+  top: 30px;
+  left: -400px;
   display: flex;
   gap: 0.625rem;
   background: rgba(255, 255, 255, 0.7);
@@ -184,6 +217,4 @@
 .binaural-beats img:hover {
   transform: scale(1.1);
 }
-  
-  
   
