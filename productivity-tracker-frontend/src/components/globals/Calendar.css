@@ -1,75 +1,140 @@
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
+  color: #333;
+}
 
 .calendar {
-    width: 400px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 25%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: Arial, sans-serif;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  padding: 1rem;
+  max-width: 600px;
+  margin: auto;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #FF0066, #FF8C00);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.calendar-header button {
+  background: #FFF;
+  color: #FF0066;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.calendar-header button:hover {
+  background: #FFDEE9;
+}
+
+/* Weekdays Styling */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #FFDEE9;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5rem 0;
+  color: #FF0066;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-grid div {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  position: relative;
+  background: #FFF8F0;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.calendar-grid div.selected {
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-grid div:hover {
+  background: #FFDEE9;
+  transform: scale(1.05);
+}
+
+/* Empty Spaces for Leading Days */
+.empty {
+  background: transparent;
+}
+
+/* Tasks Styling */
+.task {
+  background: linear-gradient(90deg, #00DBDE, #FF8C00);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.5rem;
+  margin: 0.2rem auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.task.completed {
+  background: linear-gradient(90deg, #C1FBA4, #4CAF50);
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+.task:hover {
+  transform: translateY(-2px);
+}
+
+/* Productivity Tracker Header */
+h1 {
+  font-size: 2rem;
+  color: #FF0066;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px rgba(255, 0, 102, 0.3);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
   }
-  
-  .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  .calendar-header button {
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-  }
-  
-  .calendar-header h3 {
-    font-size: 24px;
-    color: #333;
-    margin: 0;
-  }
-  
-  .weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    color: #000;
-    margin-bottom: 10px;
-  }
-  
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 5px;
-  }
-  
-  .calendar-grid div,
-  .weekdays div {
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    text-align: center;
-  }
-  
-  .calendar-grid .empty {
-    background-color: transparent;
-  }
-  
-  .calendar-grid div {
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .calendar-grid div:hover {
-    background-color: #ffc700;
-    color: white;
-  }
-  
-  .calendar-grid .selected {
-    background-color: #ffc700; /* Highlight today's date in yellow */
-    color: white;
-    font-weight: bold;
-    border-radius: 35%;
-  }
-  
+}
+
