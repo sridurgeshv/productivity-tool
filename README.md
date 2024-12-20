@@ -3,7 +3,7 @@ A Smart productivity tracker system built with Crystal backend using libraries l
 
 ## Key Features
 - **Dashboard Overview**: Once authenticated, users are redirected to the dashboard, which serves as the control center. Here, users can access various components such as the Calendar, Tasks section , pomodoro section aligned with focus timer , my inventory for link management , AI suggestion integration and settings page.
-- **Task Management**: The dedicated Tasks page allows users to enter tasks, describe the task description and set deadlines. If they want they can also delete or edit the task details and mark as completed whenever they are done with there task in dashboard .The dashboard automatically updates with this information, ensuring users stay on top of their to-do list.
+- **Task Management**: The dedicated Tasks page allows users to enter tasks, describe the task description and set deadlines. If they want they can also delete or edit the task details and mark task as completed whenever they are done with there task in dashboard .The dashboard automatically updates with this information, ensuring users stay on top of their to-do list.
 - **Calendar**: Displays the current date and integrates with the Tasks feature, providing a visual overview of upcoming deadlines.
 - **AI Integration**: Where users can ask for productivity suggestions , tips , can ask ai to give them a plan to follow for a day or what not.
 - **My Inventory**: A personalized links storage section where users can save and organize URLs without cluttering their browser bookmarks.
