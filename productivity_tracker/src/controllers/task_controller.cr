@@ -374,7 +374,7 @@ module ProductivityTracker
       end
 
 
-client = Google::GenerativeAI::Client.new("AIzaSyAE9vosSokAOVA5n7hFDGn5EYcWillUbYE")
+client = Google::GenerativeAI::Client.new("Gemini_api_key")
 
 get "/ai-suggestions" do |env|
   begin
