@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import "../globals/FocusTimer.css";
 import BinauralBeats from "./BinauralBeats"; // Import BinauralBeats component
 
-const FocusTimerPage = ({onClose}) => {
+const FocusTimerPage = ({ onClose }) => {
   const location = useLocation();
   const { title } = location.state || { title: "Default Task" };
   const [seconds, setSeconds] = useState(25 * 60); // Default Pomodoro time
@@ -11,6 +11,21 @@ const FocusTimerPage = ({onClose}) => {
   const [mode, setMode] = useState("Pomodoro"); // Modes: Pomodoro, Short Break
   const [trackedTasks, setTrackedTasks] = useState([]);
   const [activeAudio, setActiveAudio] = useState(null);
+  const [motivationalQuote, setMotivationalQuote] = useState("");
+
+  // Fetch motivational quote on page load
+  useEffect(() => {
+    fetch("http://localhost:3000/focus-timer?input=motivation")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.quote) {
+          setMotivationalQuote(data.quote);
+        } else {
+          setMotivationalQuote("Stay focused and keep going!");
+        }
+      })
+      .catch((err) => console.error("Error fetching motivational quote:", err));
+  }, []);
 
   // Timer effect
   useEffect(() => {
@@ -81,22 +96,22 @@ const FocusTimerPage = ({onClose}) => {
 
   const handleStop = () => {
     setIsRunning(false);
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
+    if (activeAudio) {
+      activeAudio.pause();
+      activeAudio.currentTime = 0;
     }
-    if (focusTask) {
+    if (title) {
       fetch('http://localhost:3000/tracked-tasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title: focusTask, time: Math.floor(totalFocusedTime / 60) }),
+        body: JSON.stringify({ title, time: Math.floor(seconds / 60) }),
       })
         .then(response => response.json())
         .then(data => {
           console.log('Task tracked successfully:', data);
-          addTrackedTask(data);
+          setTrackedTasks(prev => [...prev, data]);
         })
         .catch(error => {
           console.error('Error posting tracked task:', error);
@@ -108,9 +123,11 @@ const FocusTimerPage = ({onClose}) => {
   return (
     <div className="focus-timer-overlay">
       <div className="focus-timer-header">
-      {/* Binaural Beats Section */}
-      <BinauralBeats onMusicStart={handleMusicStart} />
-      <button className="close-button" onClick={handleStop}>&#10540;</button>
+        {/* Display Motivational Quote at the top */}
+        <h3>{motivationalQuote}</h3>
+        {/* Binaural Beats Section */}
+        <BinauralBeats onMusicStart={handleMusicStart} />
+        <button className="close-button" onClick={handleStop}>&#10540;</button>
       </div>
       <div className="focus-timer">
         <h1>Pomodoro Timer</h1>
