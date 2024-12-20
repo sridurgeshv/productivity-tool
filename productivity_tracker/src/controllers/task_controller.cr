@@ -4,6 +4,7 @@ require "../models/task"
 require "../models/TrackedTask"
 require "../models/link"
 require "../database/db_connection"
+require "google/gemini"
 
 module ProductivityTracker
   class TaskController
@@ -372,7 +373,229 @@ module ProductivityTracker
         end
       end
 
-      # Serve music files dynamically based on category
+
+client = Google::GenerativeAI::Client.new("AIzaSyAE9vosSokAOVA5n7hFDGn5EYcWillUbYE")
+
+get "/ai-suggestions" do |env|
+  begin
+    env.response.headers["Access-Control-Allow-Origin"] = "*"
+    env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    env.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    
+    # Extract query parameter "input" from the request
+    user_input = env.params.query["input"]? || "" # Default to an empty string if "input" is not provided
+
+    if user_input.empty?
+      env.response.status_code = 400
+      env.response.content_type = "application/json"
+      env.response.print({ error: "Missing 'input' query parameter" }.to_json)
+      next # Exit the block early
+    end
+
+    # Generate suggestions using Gemini API
+    gemini = client.model(
+      "models/gemini-1.5-flash",
+      system_instruction: <<-MALAKAI,
+        You are an expert in productivity tracking. Provide concise suggestions based on the user's input in not more than 100 words.
+      MALAKAI
+      temperature: 0.7,
+    )
+
+    response = gemini.generate(<<-PROMPT)
+      Provide suggestions for: #{user_input}
+    PROMPT
+
+# Check if candidates exist before attempting to map and join
+suggestions_text = if response.candidates.nil?
+  "No suggestions found."
+else
+  response.candidates.map do |candidate|
+    candidate.content.parts[0].text
+  end.join("\n")
+end
+
+    env.response.content_type = "application/json"
+    env.response.print({ success: true, suggestions: suggestions_text }.to_json)
+
+  rescue ex : Exception
+    # Handle errors and send a meaningful error response
+    env.response.status_code = 500
+    env.response.content_type = "application/json"
+    env.response.print({ error: "Error generating suggestions: #{ex.message}" }.to_json)
+  end
+end
+
+get "/focus-timer" do |env|
+  begin
+    env.response.headers["Access-Control-Allow-Origin"] = "*"
+    env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    env.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+
+    # Generate a motivational quote using Gemini API
+    gemini = client.model(
+      "models/gemini-1.5-flash",
+      system_instruction: <<-MALAKAI,
+        You are a motivational assistant. Provide a short, inspiring quote to help the user stay focused.
+      MALAKAI
+      temperature: 0.7,
+    )
+
+    response = gemini.generate(<<-PROMPT)
+      Provide a motivational quote to help someone stay focused.
+    PROMPT
+
+    # Extract the motivational quote from the response
+    motivational_quote = if response.candidates.nil? || response.candidates.empty?
+      "Stay focused and keep going!"
+    else
+      response.candidates.first.content.parts[0].text
+    end
+
+    env.response.content_type = "application/json"
+    env.response.print({ success: true, quote: motivational_quote }.to_json)
+
+  rescue ex : Exception
+    # Handle errors and send a meaningful error response
+    env.response.status_code = 500
+    env.response.content_type = "application/json"
+    env.response.print({ error: "Error generating quote: #{ex.message}" }.to_json)
+  end
+end
+
+# Save a new user
+post "/api/save-user" do |env|
+  begin
+    # Set CORS headers for the response
+    env.response.headers["Access-Control-Allow-Origin"] = "*"
+    env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    env.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+
+    # Parse the incoming JSON body
+    user_params = env.params.json
+    user_id = user_params["uid"].as(String)
+    email = user_params["email"].as(String)
+    display_name = user_params["displayName"].as(String?)
+    photo_url = user_params["photoURL"].as(String?)
+
+    # Connect to the database
+    db = Database.connect
+
+    # Check if the user already exists
+    user_exists = false
+    db.query("SELECT COUNT(*) FROM users WHERE uid = ?", user_id) do |rs|
+      user_exists = rs.read(Int32) > 0
+    end
+
+    if user_exists
+      # User already exists
+      env.response.content_type = "application/json"
+      env.response.status_code = 409 # Conflict
+      env.response.print({ message: "User details are already in the database" }.to_json)
+    else
+      # Insert the user into the users table
+      db.exec(
+        "INSERT INTO users (uid, email, display_name, photo_url) VALUES (?, ?, ?, ?)",
+        user_id, email, display_name, photo_url
+      )
+
+      # Send a success response
+      env.response.content_type = "application/json"
+      env.response.status_code = 201 # Created
+      env.response.print({ message: "User saved successfully" }.to_json)
+    end
+
+    db.close
+  rescue ex
+    # Handle exceptions
+    env.response.status_code = 500
+    env.response.print({ error: ex.message }.to_json)
+  end
+end
+
+
+
+# Get user details
+get "/api/get-user/:uid" do |env|
+  begin
+  # Set CORS headers for the response
+    env.response.headers["Access-Control-Allow-Origin"] = "*"
+    env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    env.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+
+    # Get the user ID from the URL parameters
+    user_id = env.params.url["uid"]
+
+    # Connect to the database
+    db = Database.connect
+
+    # Query the user from the users table
+    user = db.query_one("SELECT uid, email, display_name, photo_url FROM users WHERE uid = ?", user_id) do |rs|
+      {
+        uid: rs.read(String),
+        email: rs.read(String),
+        display_name: rs.read(String?),
+        photo_url: rs.read(String?)
+      }
+    end
+
+    db.close
+
+    # Send a response back to the frontend
+    env.response.content_type = "application/json"
+    env.response.headers["Access-Control-Allow-Origin"] = "*"
+    env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    env.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    env.response.status_code = 200
+    env.response.print(user.to_json)
+
+  rescue ex
+    # Handle exceptions
+    env.response.status_code = 500
+    env.response.print({ error: ex.message }.to_json)
+  end
+end
+
+# Update user data
+post "/api/update-user" do |env|
+  begin
+  # Set CORS headers for the response
+    env.response.headers["Access-Control-Allow-Origin"] = "*"
+    env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    env.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+
+    # Parse the incoming JSON body
+    update_params = env.params.json
+    user_id = update_params["uid"].as(String)
+    display_name = update_params["displayName"].as(String?)
+    photo_url = update_params["photoURL"].as(String?)
+
+    # Connect to the database
+    db = Database.connect
+
+    # Update the user's information
+    db.exec(
+      "UPDATE users SET display_name = ?, photo_url = ? WHERE uid = ?",
+      display_name, photo_url, user_id
+    )
+
+    db.close
+
+    # Send a response back to the frontend
+    env.response.content_type = "application/json"
+    env.response.headers["Access-Control-Allow-Origin"] = "*"
+    env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    env.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    env.response.status_code = 200
+    env.response.print({ message: "User updated successfully" }.to_json)
+
+  rescue ex
+    # Handle exceptions
+    env.response.status_code = 500
+    env.response.print({ error: ex.message }.to_json)
+  end
+end
+
+# Serve music files dynamically based on category
       get "/api/music/:category" do |env|
         env.response.headers["Access-Control-Allow-Origin"] = "*"
         env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
