@@ -9,6 +9,7 @@ import HomePage from './components/pages/HomePage';
 import Dashboard from './components/pages/Dashboard';
 import Login from './components/pages/Login';
 import FocusTimer from './components/pages/FocusTimer';
+import Settings from './components/pages/Settings';
 import './App.css';
 
 // Protected Route Component
@@ -44,6 +45,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/settings" element={<Settings />} />
           <Route 
             path="/productivity" 
             element={
