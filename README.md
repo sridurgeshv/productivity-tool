@@ -68,7 +68,7 @@ crystal src/database/init_db.cr
 Once both the frontend and backend are running, you can view the Smart Productivity tracker in your browser by navigating to http://localhost:5173.
 
 ### Video Demo
-To see Smart Productivity tracker in action, check out our [video demonstration](https://youtu.be/KSw9xyLhOHk). The video provides an overview of the app's features and shows how to navigate and use the tool effectively.
+To see Smart Productivity tracker in action, check out our [video demonstration](https://youtu.be/OCf8Fl_qXpk). The video provides an overview of the app's features and shows how to navigate and use the tool effectively.
 
 - Discord Handles
   
