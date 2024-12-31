@@ -2,15 +2,14 @@
 A Smart productivity tracker system built with Crystal backend using libraries like Kemal for lightweight web servers and React frontend, featuring AI-powered suggestions, task management, time tracking, link management and binaurial beats .
 
 ## Key Features
-- **Dashboard Overview**: Once authenticated, users are redirected to the dashboard, which serves as the control center. Here, users can access various components such as the Calendar, Tasks section , pomodoro section aligned with focus timer , my inventory for link management , AI suggestion integration and settings page.
-- **Task Management**: The dedicated Tasks page allows users to enter tasks, describe the task description and set deadlines. If they want they can also delete or edit the task details and mark task as completed whenever they are done with there task in dashboard .The dashboard automatically updates with this information, ensuring users stay on top of their to-do list.
-- **Calendar**: Displays the current date and integrates with the Tasks feature, providing a visual overview of upcoming deadlines.
-- **AI Integration**: Where users can ask for productivity suggestions , tips , can ask ai to give them a plan to follow for a day or what not.
-- **My Inventory**: A personalized links storage section where users can save and organize URLs without cluttering their browser bookmarks.
-- **Pomodoro with focus timer Integration**: - The app includes a Pomodoro button which when clicked on redirect you to focus-timer section which include timer for 25 minutes of work on a particular task followed by a 5-minute break to enhance concentration and productivity.
--  Users can track their progress in the Tracking List, which syncs with the focus-timer cycles.
--  Users can also choose from various music categories—Relax, Focus, Energize, Sleep, and Meditate—to complement their work sessions.
--  Have a motivational quote feature powered by ai to help user stay focused on there task
+- **Dashboard Overview**: Your control center! Access Calendar, Tasks, Pomodoro timer, link management, AI suggestions, and settings all in one place.
+- **Task Management**: Easily add, edit, delete, and mark tasks as completed. Stay organized with real-time updates on your dashboard.
+- **Calendar**: View the current date and upcoming deadlines integrated with your tasks for better planning.
+- **AI Integration**: Get productivity tips, daily plans, and suggestions tailored to enhance your workflow.
+- **My Inventory**: Store and organize your favorite links without cluttering your browser bookmarks.
+- **Pomodoro Timer** : Boost focus with a built-in timer for 25 minutes of work followed by a 5-minute break. Track your progress easily!
+- **Music Categories** : Choose from Relax, Focus, Energize, Sleep, and Meditate playlists to enhance your work sessions.
+- **Motivational Quotes** : Stay inspired with AI-generated quotes to keep you focused on your tasks.
 
 ## Why Choose Smart Productivity tracker with AI suggestion?
 A Smart Productivity Tracker with AI-Powered Suggestions is an ideal solution because it helps users optimize their work habits by tracking tasks, time, and focus sessions. The AI provides personalized insights, like suggesting break times or task prioritization based on individual productivity patterns. It enhances productivity, improves work-life balance, and offers a customizable and adaptive experience, making it more effective than basic task managers.
