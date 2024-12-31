@@ -69,9 +69,9 @@ Once both the frontend and backend are running, you can view the Smart Productiv
 ### Video Demo
 To see Smart Productivity tracker in action, check out our [video demonstration](https://youtu.be/UR1qmHQp-lw). The video provides an overview of the app's features and shows how to navigate and use the tool effectively.
 
-- Discord Handles
+### Discord Handles
   
-  @ritika12
+ - @ritika12
   
-  @sunnyunam 
+ - @sunnyunam 
 
