@@ -12,7 +12,7 @@ A Smart productivity tracker system built with Crystal backend using libraries l
 - **Motivational Quotes** : Stay inspired with AI-generated quotes to keep you focused on your tasks.
 
 ## Why Choose Smart Productivity tracker with AI suggestion?
-A Smart Productivity Tracker with AI-Powered Suggestions is an ideal solution because it helps users optimize their work habits by tracking tasks, time, and focus sessions. The AI provides personalized insights, like suggesting break times or task prioritization based on individual productivity patterns. It enhances productivity, improves work-life balance, and offers a customizable and adaptive experience, making it more effective than basic task managers.
+The Smart Productivity Tracker with AI-Powered Suggestions is designed to help users optimize their work habits by monitoring tasks, time, and focus sessions. The AI delivers personalized insights, such as recommending break times and task prioritization based on individual productivity patterns. This tool enhances productivity, improves work-life balance, and provides a customizable and adaptive experience, making it more effective than standard task managers.
 
 ## Prerequisite
 - Gemini Api Key - You have to input your gemini key in task_controller.cr file of the productivity_tracker directory.
